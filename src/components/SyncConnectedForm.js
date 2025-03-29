@@ -1,4 +1,4 @@
-import { splitRoomId } from "../utils/room"
+import { splitRoomId } from '../utils/room'
 
 export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
   return (
@@ -8,7 +8,9 @@ export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
           <span className="is-size-1">{userName}</span>
         </div>
         <div className="column is-narrow">
-          <p><em>connected to room</em></p>
+          <p>
+            <em>connected to room</em>
+          </p>
           <span className="is-size-2">{splitRoomId(roomId)}</span>
         </div>
       </div>

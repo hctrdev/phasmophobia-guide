@@ -1,4 +1,4 @@
-import { splitRoomId } from "../utils/room"
+import { splitRoomId } from '../utils/room'
 
 export const ReactiveSyncStatusButton = ({
   isConnected,

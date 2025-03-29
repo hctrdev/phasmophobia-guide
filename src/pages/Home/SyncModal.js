@@ -49,10 +49,7 @@ export const SyncModal = ({ toggleSyncModalOpen }) => {
               disconnect={disconnect}
             />
           ) : (
-            <SyncConnectForm
-              roomId={room}
-              connect={connect}
-            />
+            <SyncConnectForm roomId={room} connect={connect} />
           )}
         </section>
       </div>
