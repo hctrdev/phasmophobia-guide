@@ -51,7 +51,6 @@ export const SyncModal = ({ toggleSyncModalOpen }) => {
           ) : (
             <SyncConnectForm
               roomId={room}
-              userName={userName}
               connect={connect}
             />
           )}
