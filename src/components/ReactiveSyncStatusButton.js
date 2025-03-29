@@ -1,3 +1,5 @@
+import { splitRoomId } from "../utils/room"
+
 export const ReactiveSyncStatusButton = ({
   isConnected,
   toggleSyncModal,
@@ -14,7 +16,7 @@ export const ReactiveSyncStatusButton = ({
           className={'fa' + (isConnected ? ' fa-sync fa-spin' : ' fa-users')}
         />
       </span>
-      {isConnected ? <span>{roomId}</span> : ''}
+      {isConnected ? <span>{splitRoomId(roomId)}</span> : ''}
     </button>
   )
 }
