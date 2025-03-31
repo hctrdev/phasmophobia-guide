@@ -2,21 +2,25 @@ import { splitRoomId } from '../utils/room'
 
 export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
   return (
-    <div className="has-text-centered">
-      <div className="columns is-vcentered is-centered">
-        <div className="column is-narrow mr-4">
-          <span className="is-size-1">{userName}</span>
+    <div className="columns">
+      <div className="column">
+        <div className="mb-5">
+          <p className="lowercase is-italic mb-0">you are</p>
+          <p className="is-size-2 has-text-centered">{userName}</p>
         </div>
-        <div className="column is-narrow">
-          <p>
-            <em>connected to room</em>
-          </p>
-          <span className="is-size-2">{splitRoomId(roomId)}</span>
+
+        <div className='mb-5'>
+          <p className="lowercase is-italic mb-0">connected to room</p>
+          <p className="is-size-2 has-text-centered">{splitRoomId(roomId)}</p>
         </div>
+
+        <button className="button is-danger is-outline is-fullwidth" onClick={disconnect}>
+          Disconnect
+        </button>
       </div>
-      <button className="button is-danger is-outline" onClick={disconnect}>
-        Disconnect
-      </button>
+      <div className="column">
+        {/* <p>Updates</p> */}
+      </div>
     </div>
   )
 }
