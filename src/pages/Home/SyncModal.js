@@ -9,10 +9,15 @@ export const SyncModal = ({ toggleSyncModalOpen }) => {
     useContext(SyncContext)
   const { setOnChangeHandler, setDataFromSync } = useContext(SelectionContext)
 
+  const appendEventToHistory = (event) => {
+    console.log('history', event)
+  }
+
   const connect = (roomId, userName) => {
     connectSync(
       setOnChangeHandler,
       setDataFromSync,
+      appendEventToHistory,
       setConnected,
       roomId,
       userName,

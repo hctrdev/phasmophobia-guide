@@ -3,7 +3,8 @@ import { escapeRoomId } from './room'
 
 export const connectSync = (
   setOnChangeHandler,
-  setDataFromSync,
+  setStateFromSync,
+  appendEventToHistory,
   setConnected,
   roomId,
   userName,
@@ -11,8 +12,8 @@ export const connectSync = (
   console.log('connecting ...')
   setOnChangeHandler(() => syncChange(roomId, userName))
   setConnected(roomId, userName)
-  loadCurrentRoomState(roomId, onRawLoad(setDataFromSync))
-  subscribeForUpdates(roomId, onRawSync(setDataFromSync))
+  loadCurrentRoomState(roomId, onRawLoad(setStateFromSync))
+  subscribeForUpdates(roomId, onRawSync(setStateFromSync, appendEventToHistory))
 }
 
 export const disconnectSync = (setOnChangeHandler, setDisconnected) => {
@@ -25,9 +26,14 @@ const syncChange = (roomId, userName) => (data) => {
   publishNewState(roomId, userName, data)
 }
 
-const onRawSync = (setDataFromSync) => (rawData) => {
-  const data = rawData.record.state
-  setDataFromSync(data)
+const onRawSync = (setDataFromSync, appendToHistory) => (rawData) => {
+  const state = rawData.record.state
+  const event = {
+    at: rawData.record.updated,
+    by: rawData.record.updated_by,
+  }
+  setDataFromSync(state)
+  appendToHistory(event)
 }
 
 const onRawLoad = (setDataFromSync) => (rawData) => {
