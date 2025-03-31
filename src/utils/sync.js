@@ -1,11 +1,12 @@
 import { api } from './pocketbase'
 import { escapeRoomId } from './room'
 
-export const connectSync = (
+export const connectSync = async (
   setOnChangeHandler,
   setStateFromSync,
   appendEventToHistory,
   setConnected,
+  setDisconnected,
   roomId,
   userName,
 ) => {
@@ -13,11 +14,16 @@ export const connectSync = (
   setOnChangeHandler(() => syncChange(roomId, userName))
   setConnected(roomId, userName)
   loadCurrentRoomState(roomId, onRawLoad(setStateFromSync))
-  subscribeForUpdates(roomId, onRawSync(setStateFromSync, appendEventToHistory))
+  const unsubscribe = await subscribeForUpdates(roomId, onRawSync(setStateFromSync, appendEventToHistory))
+  return () => {
+    console.log("disconnecting 2")
+    disconnectSync(unsubscribe, setOnChangeHandler, setDisconnected)
+  }
 }
 
-export const disconnectSync = (setOnChangeHandler, setDisconnected) => {
+const disconnectSync = (unsubscribe, setOnChangeHandler, setDisconnected) => {
   console.log('disconnecting ...')
+  unsubscribe()
   setOnChangeHandler(() => () => {})
   setDisconnected()
 }
@@ -65,9 +71,9 @@ const loadCurrentRoomState = (roomId, handler) => {
     .catch((err) => console.log('api error', err))
 }
 
-const subscribeForUpdates = (roomId, handler) => {
+const subscribeForUpdates = async (roomId, handler) => {
   const escapedRoomId = escapeRoomId(roomId)
-  api.collection('room_state').subscribe('*', (event) => {
+  return api.collection('room_state').subscribe('*', (event) => {
     if (event.action !== 'create' || event.record.room_id !== escapedRoomId)
       return
     console.log('room state changes from pocketbase', event)

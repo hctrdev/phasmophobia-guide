@@ -5,6 +5,7 @@ const SyncContext = createContext()
 const SyncContextProvider = ({ children }) => {
   const isSyncFeatureEnabled =
     process.env.REACT_APP_REALTIME_SYNC_ENABLED === 'true'
+  const [disconnectFn, setDisconnectFn] = useState(() => () => {})
   const [room, setRoom] = useState('')
   const [userName, setUserName] = useState('')
   const [isConnected, setIsConnected] = useState(false)
@@ -45,6 +46,8 @@ const SyncContextProvider = ({ children }) => {
         isConnected,
         history,
         historySize,
+        disconnectFn,
+        setDisconnectFn,
         setConnected,
         setDisconnected,
         clearHistory,
