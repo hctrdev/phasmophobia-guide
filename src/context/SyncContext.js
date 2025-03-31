@@ -28,7 +28,7 @@ const SyncContextProvider = ({ children }) => {
 
   const appendToHistory = (event) => {
     console.log("history", event)
-    setHistory(prev => [...prev, event]);
+    setHistory(prev => [event, ...prev]);
   }
 
   return (
