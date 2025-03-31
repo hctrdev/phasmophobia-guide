@@ -1,4 +1,5 @@
 import { api } from './pocketbase'
+import { escapeRoomId } from './room'
 
 export const connectSync = (
   setOnChangeHandler,
@@ -67,5 +68,3 @@ const subscribeForUpdates = (roomId, handler) => {
     handler(event)
   })
 }
-
-const escapeRoomId = (roomId) => roomId.replace(/\s/g, '')

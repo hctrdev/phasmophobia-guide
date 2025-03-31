@@ -1,17 +1,11 @@
 import { useRef, useState, useEffect } from 'react'
-import { isRoomIdValid, isUserNameValid } from '../utils/validation'
+import { isRoomIdValid } from '../utils/validation'
+import { pickRandomEmoji } from '../data/emoji'
 
-export const SyncConnectForm = ({ roomId, userName, connect }) => {
-  const userNameRef = useRef(null)
+export const SyncConnectForm = ({ roomId, connect }) => {
   const roomIdRef = useRef(null)
 
-  const [usernameValid, setUsernameValid] = useState(isUserNameValid(userName))
   const [roomIdValid, setRoomIdValid] = useState(isRoomIdValid(roomId))
-
-  const onUsernameChange = (e) => {
-    const username = e.target.value
-    setUsernameValid(isUserNameValid(username))
-  }
 
   const onRoomIdChange = (e) => {
     const roomId = e.target.value
@@ -19,33 +13,16 @@ export const SyncConnectForm = ({ roomId, userName, connect }) => {
   }
 
   useEffect(() => {
-    userNameRef.current.focus()
-  }, [userNameRef])
+    roomIdRef.current.focus()
+  }, [roomIdRef])
 
   const handleConnect = () => {
-    connect(roomIdRef.current.value, userNameRef.current.value)
+    const emoji = pickRandomEmoji()
+    connect(roomIdRef.current.value, emoji)
   }
 
   return (
     <>
-      <div className="field">
-        <label className="label">Name</label>
-        <div className="control">
-          <input
-            ref={userNameRef}
-            className="input"
-            type="text"
-            defaultValue={userName ?? ''}
-            onChange={onUsernameChange}
-            maxLength={20}
-            placeholder="player1"
-          />
-        </div>
-        {usernameValid || (
-          <p className="help is-danger">This name is invalid</p>
-        )}
-      </div>
-
       <div className="field">
         <label className="label">Room ID</label>
         <div className="control">
@@ -65,7 +42,7 @@ export const SyncConnectForm = ({ roomId, userName, connect }) => {
       <div className="control pt-4">
         <button
           className="button is-success"
-          disabled={!(usernameValid && roomIdValid)}
+          disabled={!roomIdValid}
           onClick={handleConnect}
         >
           Connect
