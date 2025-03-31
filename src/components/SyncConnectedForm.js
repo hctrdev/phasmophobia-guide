@@ -1,5 +1,14 @@
 import { splitRoomId } from '../utils/room'
 
+const getUserList = (history) => {
+  console.log("user list from", history)
+  return [...new Set(history.map((e) => e.by))]
+}
+
+const getTime = (ts) => {
+  return `${new Date(ts).toLocaleTimeString()}`
+}
+
 export const SyncConnectedForm = ({ roomId, userName, disconnect, history }) => {
   return (
     <div className="columns">
@@ -22,9 +31,22 @@ export const SyncConnectedForm = ({ roomId, userName, disconnect, history }) => 
         </button>
       </div>
       <div className="column">
+          <p className="lowercase is-italic mb-0 has-text-centered">change history</p>
+
+          <div className="columns is-mobile is-centered mt-1">
+          {getUserList(history).map((u) => {
+            return <span className="column is-narrow mx-2" key={u}>{u}</span>
+          })}
+          </div>
+<hr />            
+          <ol>
+
         {history?.map((e) => {
-          return (<p>{e.at} {e.by}</p>)
+          return (<li key={e.at}>
+            <span className="is-italic mr-3">{getTime(e.at)}</span> <span className="is-size-4">{e.by}</span>
+            </li>)
         } )}
+          </ol>
       </div>
     </div>
   )
