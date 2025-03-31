@@ -5,7 +5,7 @@ import { connectSync, disconnectSync } from '../../utils/sync'
 import { SelectionContext } from '../../context/SelectionContext'
 
 export const SyncModal = ({ toggleSyncModalOpen }) => {
-  const { room, userName, isConnected, setConnected, setDisconnected, history, appendToHistory } =
+  const { room, userName, isConnected, setConnected, setDisconnected, history, historySize, appendToHistory } =
     useContext(SyncContext)
   const { setOnChangeHandler, setDataFromSync } = useContext(SelectionContext)
 
@@ -49,6 +49,7 @@ export const SyncModal = ({ toggleSyncModalOpen }) => {
               userName={userName}
               disconnect={disconnect}
               history={history}
+              historySize={historySize}
             />
           ) : (
             <SyncConnectForm roomId={room} connect={connect} />

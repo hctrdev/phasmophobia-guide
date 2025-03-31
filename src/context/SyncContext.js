@@ -9,6 +9,7 @@ const SyncContextProvider = ({ children }) => {
   const [userName, setUserName] = useState('')
   const [isConnected, setIsConnected] = useState(false)
   const [history, setHistory] = useState([])
+  const [historySize, setHistorySize] = useState(0)
 
   const setConnected = (roomId, userName) => {
     clearHistory()
@@ -24,11 +25,15 @@ const SyncContextProvider = ({ children }) => {
 
   const clearHistory = () => {
     setHistory([])
+    setHistorySize(0)
   }
 
   const appendToHistory = (event) => {
     console.log("history", event)
-    setHistory(prev => [event, ...prev]);
+    setHistorySize(prev => prev + 1)
+    setHistory(prev => 
+      [event, ...prev.slice(0, 15)]
+    );
   }
 
   return (
@@ -39,6 +44,7 @@ const SyncContextProvider = ({ children }) => {
         userName,
         isConnected,
         history,
+        historySize,
         setConnected,
         setDisconnected,
         clearHistory,
