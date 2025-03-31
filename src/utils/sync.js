@@ -14,9 +14,12 @@ export const connectSync = async (
   setOnChangeHandler(() => syncChange(roomId, userName))
   setConnected(roomId, userName)
   loadCurrentRoomState(roomId, onRawLoad(setStateFromSync))
-  const unsubscribe = await subscribeForUpdates(roomId, onRawSync(setStateFromSync, appendEventToHistory))
+  const unsubscribe = await subscribeForUpdates(
+    roomId,
+    onRawSync(setStateFromSync, appendEventToHistory),
+  )
   return () => {
-    console.log("disconnecting 2")
+    console.log('disconnecting 2')
     disconnectSync(unsubscribe, setOnChangeHandler, setDisconnected)
   }
 }

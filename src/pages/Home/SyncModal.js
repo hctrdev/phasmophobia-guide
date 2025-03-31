@@ -5,8 +5,18 @@ import { connectSync } from '../../utils/sync'
 import { SelectionContext } from '../../context/SelectionContext'
 
 export const SyncModal = ({ toggleSyncModalOpen }) => {
-  const { room, userName, disconnectFn, setDisconnectFn, isConnected, setConnected, setDisconnected, history, historySize, appendToHistory } =
-    useContext(SyncContext)
+  const {
+    room,
+    userName,
+    disconnectFn,
+    setDisconnectFn,
+    isConnected,
+    setConnected,
+    setDisconnected,
+    history,
+    historySize,
+    appendToHistory,
+  } = useContext(SyncContext)
   const { setOnChangeHandler, setDataFromSync } = useContext(SelectionContext)
 
   const connect = async (roomId, userName) => {
@@ -19,9 +29,9 @@ export const SyncModal = ({ toggleSyncModalOpen }) => {
       roomId,
       userName,
     )
-    console.log("connected 2")
+    console.log('connected 2')
     setDisconnectFn(() => disconnect)
-console.log("connected 3")
+    console.log('connected 3')
     //setTimeout(() => toggleSyncModalOpen(), 750)
   }
 

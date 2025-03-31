@@ -30,11 +30,9 @@ const SyncContextProvider = ({ children }) => {
   }
 
   const appendToHistory = (event) => {
-    console.log("history", event)
-    setHistorySize(prev => prev + 1)
-    setHistory(prev => 
-      [event, ...prev.slice(0, 15)]
-    );
+    console.log('history', event)
+    setHistorySize((prev) => prev + 1)
+    setHistory((prev) => [event, ...prev.slice(0, 15)])
   }
 
   return (
