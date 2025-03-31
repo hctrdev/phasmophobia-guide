@@ -1,6 +1,6 @@
 import { splitRoomId } from '../utils/room'
 
-export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
+export const SyncConnectedForm = ({ roomId, userName, disconnect, history }) => {
   return (
     <div className="columns">
       <div className="column">
@@ -21,7 +21,11 @@ export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
           Disconnect
         </button>
       </div>
-      <div className="column">{/* <p>Updates</p> */}</div>
+      <div className="column">
+        {history?.map((e) => {
+          return (<p>{e.at} {e.by}</p>)
+        } )}
+      </div>
     </div>
   )
 }
