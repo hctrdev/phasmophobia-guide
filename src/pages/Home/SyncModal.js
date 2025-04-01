@@ -1,27 +1,38 @@
 import { useContext } from 'react'
 import { SyncConnectForm, SyncConnectedForm } from '../../components'
 import { SyncContext } from '../../context/SyncContext'
-import { connectSync, disconnectSync } from '../../utils/sync'
+import { connectSync } from '../../utils/sync'
 import { SelectionContext } from '../../context/SelectionContext'
 
 export const SyncModal = ({ toggleSyncModalOpen }) => {
-  const { room, userName, isConnected, setConnected, setDisconnected } =
-    useContext(SyncContext)
+  const {
+    room,
+    userName,
+    disconnectFn,
+    setDisconnectFn,
+    isConnected,
+    setConnected,
+    setDisconnected,
+    history,
+    historySize,
+    appendToHistory,
+  } = useContext(SyncContext)
   const { setOnChangeHandler, setDataFromSync } = useContext(SelectionContext)
 
-  const connect = (roomId, userName) => {
-    connectSync(
+  const connect = async (roomId, userName) => {
+    const disconnect = await connectSync(
       setOnChangeHandler,
       setDataFromSync,
+      appendToHistory,
       setConnected,
+      setDisconnected,
       roomId,
       userName,
     )
+    console.log('connected 2')
+    setDisconnectFn(() => disconnect)
+    console.log('connected 3')
     //setTimeout(() => toggleSyncModalOpen(), 750)
-  }
-
-  const disconnect = () => {
-    disconnectSync(setOnChangeHandler, setDisconnected)
   }
 
   return (
@@ -46,7 +57,9 @@ export const SyncModal = ({ toggleSyncModalOpen }) => {
             <SyncConnectedForm
               roomId={room}
               userName={userName}
-              disconnect={disconnect}
+              disconnect={disconnectFn}
+              history={history}
+              historySize={historySize}
             />
           ) : (
             <SyncConnectForm roomId={room} connect={connect} />

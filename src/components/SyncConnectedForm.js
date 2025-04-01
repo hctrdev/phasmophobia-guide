@@ -1,6 +1,17 @@
 import { splitRoomId } from '../utils/room'
+import { getUserList } from '../utils/history'
 
-export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
+const getTime = (ts) => {
+  return `${new Date(ts).toLocaleTimeString()}`
+}
+
+export const SyncConnectedForm = ({
+  roomId,
+  userName,
+  disconnect,
+  history,
+  historySize,
+}) => {
   return (
     <div className="columns">
       <div className="column">
@@ -21,7 +32,37 @@ export const SyncConnectedForm = ({ roomId, userName, disconnect }) => {
           Disconnect
         </button>
       </div>
-      <div className="column">{/* <p>Updates</p> */}</div>
+      <div className="column">
+        <div className="columns is-mobile is-centered is-multiline mt-1">
+          {getUserList(history).map((u) => {
+            return (
+              <span className="column is-narrow mx-2" key={u}>
+                {u}
+              </span>
+            )
+          })}
+        </div>
+        <hr />
+        <ol>
+          {history?.map((e) => {
+            return (
+              <li key={e.at}>
+                <span className="is-italic mr-3">{getTime(e.at)}</span>{' '}
+                <span className="is-size-4">{e.by}</span>
+                {e.reset && (
+                  <span
+                    className="ml-4 is-lowercase py-1 px-3 has-background-warning has-text-black"
+                    style={{ borderRadius: '100px', breakInside: 'avoid' }}
+                  >
+                    reset
+                  </span>
+                )}
+              </li>
+            )
+          })}
+        </ol>
+        <p className="is-italic has-text-right">{historySize} changes</p>
+      </div>
     </div>
   )
 }
