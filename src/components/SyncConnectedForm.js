@@ -49,6 +49,14 @@ export const SyncConnectedForm = ({
               <li key={e.at}>
                 <span className="is-italic mr-3">{getTime(e.at)}</span>{' '}
                 <span className="is-size-4">{e.by}</span>
+                {e.reset && (
+                  <span
+                    className="ml-4 is-lowercase py-1 px-3 has-background-warning has-text-black"
+                    style={{ borderRadius: '100px', breakInside: 'avoid' }}
+                  >
+                    reset
+                  </span>
+                )}
               </li>
             )
           })}

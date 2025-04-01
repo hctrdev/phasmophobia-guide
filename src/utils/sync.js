@@ -40,6 +40,7 @@ const onRawSync = (setDataFromSync, appendToHistory) => (rawData) => {
   const event = {
     at: rawData.record.updated,
     by: rawData.record.updated_by,
+    reset: Object.keys(rawData.record.state.evidence).length === 0,
   }
   setDataFromSync(state)
   appendToHistory(event)
