@@ -1,9 +1,5 @@
 import { splitRoomId } from '../utils/room'
-
-const getUserList = (history) => {
-  console.log('user list from', history)
-  return [...new Set(history.map((e) => e.by))]
-}
+import { getUserList } from '../utils/history'
 
 const getTime = (ts) => {
   return `${new Date(ts).toLocaleTimeString()}`

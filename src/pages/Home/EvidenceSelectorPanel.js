@@ -1,4 +1,5 @@
 import { anyVisibleGhostWithEvidence } from '../../utils/filtering'
+import { getUserList } from '../../utils/history'
 import { useContext } from 'react'
 import { SyncContext } from '../../context/SyncContext'
 import { SelectionContext } from '../../context/SelectionContext'
@@ -15,7 +16,8 @@ export const EvidenceSelectorPanel = ({
   ghosts,
   toggleSyncModal,
 }) => {
-  const { isSyncFeatureEnabled, room, isConnected } = useContext(SyncContext)
+  const { isSyncFeatureEnabled, room, isConnected, history } =
+    useContext(SyncContext)
   const {
     getIsEvidenceSelected,
     toggleEvidenceSelected,
@@ -79,6 +81,18 @@ export const EvidenceSelectorPanel = ({
           />
         )}
       </div>
+
+      {isSyncFeatureEnabled && isConnected && (
+        <div className="columns is-mobile is-centered is-multiline mt-1">
+          {getUserList(history).map((u) => {
+            return (
+              <span className="column is-narrow" key={u}>
+                {u}
+              </span>
+            )
+          })}
+        </div>
+      )}
     </>
   )
 }
