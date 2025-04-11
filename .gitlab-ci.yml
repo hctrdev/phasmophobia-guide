@@ -28,17 +28,6 @@ format:
   script:
     - npm run check-format
 
-preview:
-  extends: .node_template
-  stage: build
-  environment:
-    name: 'preview/$CI_COMMIT_REF_NAME'
-    url: 'https://$PREVIEW_SLUG.$CLOUDFLARE_PROJECT_NAME.pages.dev'
-  script:
-    - echo "PREVIEW_SLUG=$(echo '$CI_COMMIT_REF_SLUG' | cut -c 1-28)" >> $GITLAB_ENV
-    - make npm/build
-    - npx -y wrangler pages deploy --project-name "$CLOUDFLARE_PROJECT_NAME" --branch "$CI_COMMIT_REF_SLUG" build/
-
 release:
   extends: .node_template
   stage: publish
