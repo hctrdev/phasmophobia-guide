@@ -33,15 +33,10 @@ preview:
   stage: build
   environment:
     name: 'preview/$CI_COMMIT_REF_NAME'
-    url: 'https://$CI_PROJECT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/build/index.html'
-  variables:
-    PUBLIC_URL: '/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/build'
+    url: 'https://$CI_COMMIT_REF_NAME.$CLOUDFLARE_PROJECT_NAME.pages.dev'
   script:
     - make npm/build
-  artifacts:
-    paths:
-      - build/*
-    expire_in: 7 days
+    - npx -y wrangler pages deploy --project-name "$CLOUDFLARE_PROJECT_NAME" --branch "$CI_COMMIT_REF_NAME" build/
 
 release:
   extends: .node_template
