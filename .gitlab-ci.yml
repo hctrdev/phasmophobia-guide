@@ -32,7 +32,7 @@ release:
   extends: .node_template
   stage: publish
   script:
-    - npm run build
+    - make npm/build
     - npx -y wrangler pages deploy --project-name "$CLOUDFLARE_PROJECT_NAME" --branch main build/
   rules:
     - if: $CI_COMMIT_TAG =~ /^v.*$/
