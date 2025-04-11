@@ -33,7 +33,7 @@ preview:
   stage: build
   environment:
     name: 'preview/$CI_COMMIT_REF_NAME'
-    url: 'https://$CI_COMMIT_REF_NAME.$CLOUDFLARE_PROJECT_NAME.pages.dev'
+    url: 'https://$CI_COMMIT_REF_SLUG.$CLOUDFLARE_PROJECT_NAME.pages.dev'
   script:
     - make npm/build
     - npx -y wrangler pages deploy --project-name "$CLOUDFLARE_PROJECT_NAME" --branch "$CI_COMMIT_REF_NAME" build/
