@@ -2,7 +2,7 @@
 
 App to help identify ghosts in the Phasmophobia game.
 
-Access the tool here: **[LINK](https://hectorjsmith.gitlab.io/phasmophobia-guide/)**
+Access the tool here: **[LINK](https://phasmo.hctr.dev/)**
 
 ![App screenshot](docs/screenshot.png)
 
@@ -46,7 +46,7 @@ This installs all the necessary dependencies.
 
 **2.** `npm start`
 
-This runs the app locally. Once it has started, you can access the app at [http://localhost:3000/phasmophobia-guide](http://localhost:3000/phasmophobia-guide).
+This runs the app locally. Once it has started, you can access the app at [http://localhost:3000/](http://localhost:3000/).
 
 ## Disclaimers
 
@@ -62,4 +62,4 @@ This project also makes use of the following tools:
 - [Bulma CSS](https://bulma.io/)
 - [Pocketbase](https://pocketbase.io/)
 
-The project is currently hosted using Gitlab Pages. Please refer to [Gitab's Privacy Policy](https://about.gitlab.com/privacy/) for more information.
+The project is currently hosted using Cloudflare pages.
