@@ -8,7 +8,7 @@ export const Footer = ({ version, buildTime }) => {
               className="has-text-white is-uppercase is-size-7"
               target="_blank"
               rel="noreferrer"
-              href="https://gitlab.com/hectorjsmith/phasmophobia-guide"
+              href="https://gitlab.com/hctrdev/phasmophobia-guide"
             >
               <span className="icon mr-3">
                 <i className="fa fa-gitlab" />
